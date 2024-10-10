@@ -4,6 +4,7 @@ const operatingSystem = require('os');
 const { createHash, createReadStream, createWriteStream } = require('crypto');
 const { pipeline } = require('stream');
 const { promisify } = require('util');
+const { createBrotliCompress, createBrotliDecompress } = require('zlib');
 
 const asyncPipeline = promisify(pipeline);
 
@@ -108,6 +109,15 @@ const handleUserInput = async (input) => {
       fileStream.on('end', () => console.log(hashCalculator.digest('hex')));
       break;
 
+    case 'compress':
+      const [compressSource, compressDestination] = args;
+      await asyncPipeline(
+        createReadStream(filePath.resolve(currentWorkingDir, compressSource)),
+        createBrotliCompress(),
+        createWriteStream(filePath.resolve(currentWorkingDir, compressDestination))
+      ).catch(() => console.log('Operation failed'));
+      break;
+
     default:
       console.log('Invalid input');
   }
@@ -128,9 +138,7 @@ const init = () => {
   console.log(`Welcome to the File Manager, ${currentUsername}!`);
   displayCurrentDirectory();
 
-  process.stdin.on('data', (data) => {
-    handleUserInput(data.toString());
-  });
+  process.stdin.on('data', (data) => handleUserInput(data.toString()));
 };
 
 init();
