@@ -13,9 +13,7 @@ const userHomeDir = operatingSystem.homedir();
 let currentWorkingDir = userHomeDir;
 let currentUsername = '';
 
-const displayCurrentDirectory = () => {
-  console.log(`You are currently in ${currentWorkingDir}`);
-};
+const displayCurrentDirectory = () => console.log(`You are currently in ${currentWorkingDir}`);
 
 const handleUserInput = async (input) => {
   const [command, ...args] = input.trim().split(' ');
