@@ -1,10 +1,10 @@
 const fileSystem = require('fs');
 const filePath = require('path');
 const operatingSystem = require('os');
-const { createReadStream, createWriteStream } = require('crypto');
+const { createHash, createReadStream, createWriteStream } = require('crypto');
 const { pipeline } = require('stream');
 const { promisify } = require('util');
-
+const { createBrotliCompress, createBrotliDecompress } = require('zlib');
 
 const asyncPipeline = promisify(pipeline);
 
@@ -62,6 +62,14 @@ const handleUserInput = async (input) => {
         createReadStream(filePath.resolve(currentWorkingDir, args[0])),
         createWriteStream(filePath.resolve(currentWorkingDir, args[1]))
       ).catch(() => console.log('Operation failed'));
+      break;
+
+    case 'mv':
+      await asyncPipeline(
+        createReadStream(filePath.resolve(currentWorkingDir, args[0])),
+        createWriteStream(filePath.resolve(currentWorkingDir, args[1]))
+      ).catch(() => console.log('Operation failed'));
+      fileSystem.unlinkSync(filePath.resolve(currentWorkingDir, args[0]));
       break;
 
     default:
