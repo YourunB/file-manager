@@ -1,10 +1,12 @@
-const fileSystem = require('fs');
-const filePath = require('path');
-const operatingSystem = require('os');
-const { createHash, createReadStream, createWriteStream } = require('crypto');
-const { pipeline } = require('stream');
-const { promisify } = require('util');
-const { createBrotliCompress, createBrotliDecompress } = require('zlib');
+import fileSystem from 'fs';
+import filePath from 'path';
+import operatingSystem from 'os';
+import { createHash } from 'crypto';
+import { createReadStream, createWriteStream } from 'fs';
+import { pipeline } from 'stream';
+import { promisify } from 'util';
+import { createBrotliCompress, createBrotliDecompress } from 'zlib';
+
 const asyncPipeline = promisify(pipeline);
 
 const userHomeDir = operatingSystem.homedir();
