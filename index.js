@@ -1,10 +1,9 @@
 const fileSystem = require('fs');
 const filePath = require('path');
 const operatingSystem = require('os');
-const { createHash, createReadStream, createWriteStream } = require('crypto');
+const { createReadStream, createWriteStream } = require('crypto');
 const { pipeline } = require('stream');
 const { promisify } = require('util');
-const { createBrotliCompress, createBrotliDecompress } = require('zlib');
 
 const asyncPipeline = promisify(pipeline);
 
@@ -74,6 +73,32 @@ const handleUserInput = async (input) => {
 
     case 'rm':
       fileSystem.unlinkSync(filePath.resolve(currentWorkingDir, args[0]));
+      break;
+
+    case 'os':
+      switch (args[0]) {
+        case '--EOL':
+          console.log(operatingSystem.EOL);
+          break;
+        case '--cpus':
+          const cpuInfo = operatingSystem.cpus();
+          console.log(`Total CPUs: ${cpuInfo.length}`);
+          cpuInfo.forEach((cpu, index) => {
+            console.log(`CPU ${index + 1}: ${cpu.model}, ${cpu.speed} MHz`);
+          });
+          break;
+        case '--homedir':
+          console.log(userHomeDir);
+          break;
+        case '--username':
+          console.log(operatingSystem.userInfo().username);
+          break;
+        case '--architecture':
+          console.log(operatingSystem.arch());
+          break;
+        default:
+          console.log('Invalid input');
+      }
       break;
 
     default:
