@@ -1,5 +1,5 @@
-import fileSystem from 'fs';
 import filePath from 'path';
+import fileSystem from 'fs';
 import operatingSystem from 'os';
 import { createHash } from 'crypto';
 import { createReadStream, createWriteStream } from 'fs';
@@ -143,7 +143,7 @@ const init = () => {
   const usernameArgument = args.find(arg => arg.startsWith('--username='));
   if (usernameArgument) currentUsername = usernameArgument.split('=')[1].trim();
   else {
-    console.error('Error: Please provide a username using --username=your_username');
+    console.error('Error: Please provide username, for example: --username=your_name');
     process.exit(1);
   }
 
