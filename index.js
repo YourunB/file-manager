@@ -72,6 +72,10 @@ const handleUserInput = async (input) => {
       fileSystem.unlinkSync(filePath.resolve(currentWorkingDir, args[0]));
       break;
 
+    case 'rm':
+      fileSystem.unlinkSync(filePath.resolve(currentWorkingDir, args[0]));
+      break;
+
     default:
       console.log('Invalid input');
   }
