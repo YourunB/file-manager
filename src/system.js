@@ -1,5 +1,5 @@
 import { EOL as lineEnd, platform, cpus, userInfo, arch } from 'node:os';
-import { FileManager } from './init';
+import { FileManager } from './init.js';
 
 export class System extends FileManager {
   constructor() {

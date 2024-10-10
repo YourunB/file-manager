@@ -1,4 +1,4 @@
-import { Navigation } from './navigation';
+import { Navigation } from './navigation.js';
 import { createReadStream, createWriteStream, promises as fsPromises } from 'fs';
 import { pipeline } from 'stream';
 import { createHash } from 'crypto';

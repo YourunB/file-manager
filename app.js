@@ -1,5 +1,5 @@
 
-import { Commands } from "./src/commands";
+import { Commands } from "./src/commands.js";
 
 export default class App extends Commands {
   constructor() {

@@ -1,7 +1,7 @@
 import { sep } from 'path';
 import { access } from 'fs/promises';
 import { EOL as lineEnd } from 'node:os';
-import { System } from './system';
+import { System } from './system.js';
 
 export class Navigation extends System {
   constructor() {
