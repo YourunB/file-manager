@@ -19,6 +19,15 @@ const handleUserInput = async (input) => {
       if (parentDirectory !== currentWorkingDir) currentWorkingDir = parentDirectory;
       break;
 
+    case 'cd':
+      const newDirectory = filePath.resolve(currentWorkingDir, args[0]);
+      if (fileSystem.existsSync(newDirectory) && fileSystem.statSync(newDirectory).isDirectory()) {
+        currentWorkingDir = newDirectory;
+      } else {
+        console.log('Invalid input');
+      }
+      break;
+
     default:
       console.log('Invalid input');
   }
