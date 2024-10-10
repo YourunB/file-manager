@@ -42,6 +42,15 @@ const handleUserInput = async (input) => {
       } else console.log('Invalid input');
       break;
 
+    case 'add':
+      fileSystem.writeFileSync(filePath.join(currentWorkingDir, args[0]), '');
+      break;
+
+    case 'rn':
+      const [oldFileName, newFileName] = args;
+      fileSystem.renameSync(filePath.join(currentWorkingDir, oldFileName), filePath.join(currentWorkingDir, newFileName));
+      break;
+
     default:
       console.log('Invalid input');
   }
@@ -53,9 +62,8 @@ const init = () => {
   const args = process.argv.slice(2);
 
   const usernameArgument = args.find(arg => arg.startsWith('--username='));
-  if (usernameArgument) {
-    currentUsername = usernameArgument.split('=')[1].trim();
-  } else {
+  if (usernameArgument) currentUsername = usernameArgument.split('=')[1].trim();
+  else {
     console.error('Error: Please provide a username using --username=your_username');
     process.exit(1);
   }
