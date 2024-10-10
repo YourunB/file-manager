@@ -1,0 +1,14 @@
+{
+  "name": "file-manager",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "start:name": "node index.js -- --username=Ivan_Ivanov"
+  },
+  "keywords": [],
+  "author": "Yury Butskevich",
+  "license": "ISC",
+  "description": "",
+  "type": "module"
+}
