@@ -21,13 +21,20 @@ const handleUserInput = async (input) => {
 
     case 'cd':
       const newDirectory = filePath.resolve(currentWorkingDir, args[0]);
-      if (fileSystem.existsSync(newDirectory) && fileSystem.statSync(newDirectory).isDirectory()) {
-        currentWorkingDir = newDirectory;
-      } else {
-        console.log('Invalid input');
-      }
+      if (fileSystem.existsSync(newDirectory) && fileSystem.statSync(newDirectory).isDirectory()) currentWorkingDir = newDirectory;
+      else console.log('Invalid input');
       break;
 
+    case 'ls':
+      const items = fileSystem.readdirSync(currentWorkingDir).map((item) => {
+        const isDirectory = fileSystem.statSync(filePath.join(currentWorkingDir, item)).isDirectory();
+        return { name: item, type: isDirectory ? 'directory' : 'file' };
+      }).sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name));
+
+      items.forEach(({ name, type }) => console.log(`${name} - ${type}`));
+      break;
+
+    
     default:
       console.log('Invalid input');
   }
