@@ -1,6 +1,12 @@
 const fileSystem = require('fs');
 const filePath = require('path');
 const operatingSystem = require('os');
+const { createReadStream, createWriteStream } = require('crypto');
+const { pipeline } = require('stream');
+const { promisify } = require('util');
+
+
+const asyncPipeline = promisify(pipeline);
 
 const userHomeDir = operatingSystem.homedir();
 let currentWorkingDir = userHomeDir;
@@ -49,6 +55,13 @@ const handleUserInput = async (input) => {
     case 'rn':
       const [oldFileName, newFileName] = args;
       fileSystem.renameSync(filePath.join(currentWorkingDir, oldFileName), filePath.join(currentWorkingDir, newFileName));
+      break;
+
+    case 'cp':
+      await asyncPipeline(
+        createReadStream(filePath.resolve(currentWorkingDir, args[0])),
+        createWriteStream(filePath.resolve(currentWorkingDir, args[1]))
+      ).catch(() => console.log('Operation failed'));
       break;
 
     default:
