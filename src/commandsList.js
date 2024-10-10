@@ -2,6 +2,10 @@ import { EOL } from 'os';
 
 export const commandsList = {
   '--help': 'All commands',
+  up: 'Go upper from current directory',
+  cd: 'Go to dedicated folder from current directory',
+  ls: 'Print in console list of all files and folders in current directory',
+
   cat: "Read file and print its content in console: cat <path_to_file>",
   add: 'Create empty file in current working directory: add <new_file_name>',
   rn: 'Rename file (content should remain unchanged): rn <path_to_file> <new_filename>',

@@ -8,7 +8,7 @@ export class Navigation extends System {
     super();
   }
 
-  moveUp = () => {
+  up = () => {
     let pathSegments;
 
     pathSegments = this.activeDir ? this.activeDir.split(sep) : this.baseDir.split(sep);
