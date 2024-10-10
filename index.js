@@ -30,11 +30,18 @@ const handleUserInput = async (input) => {
         const isDirectory = fileSystem.statSync(filePath.join(currentWorkingDir, item)).isDirectory();
         return { name: item, type: isDirectory ? 'directory' : 'file' };
       }).sort((a, b) => a.type.localeCompare(b.type) || a.name.localeCompare(b.name));
-
       items.forEach(({ name, type }) => console.log(`${name} - ${type}`));
       break;
 
-    
+    case 'cat':
+      const fileToRead = filePath.resolve(currentWorkingDir, args[0]);
+      if (fileSystem.existsSync(fileToRead) && fileSystem.statSync(fileToRead).isFile()) {
+        const stream = createReadStream(fileToRead);
+        stream.pipe(process.stdout);
+        stream.on('error', () => console.log('Operation failed'));
+      } else console.log('Invalid input');
+      break;
+
     default:
       console.log('Invalid input');
   }
