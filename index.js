@@ -5,7 +5,6 @@ const { createHash, createReadStream, createWriteStream } = require('crypto');
 const { pipeline } = require('stream');
 const { promisify } = require('util');
 const { createBrotliCompress, createBrotliDecompress } = require('zlib');
-
 const asyncPipeline = promisify(pipeline);
 
 const userHomeDir = operatingSystem.homedir();
@@ -117,6 +116,19 @@ const handleUserInput = async (input) => {
         createWriteStream(filePath.resolve(currentWorkingDir, compressDestination))
       ).catch(() => console.log('Operation failed'));
       break;
+
+    case 'decompress':
+      const [decompressSource, decompressDestination] = args;
+      await asyncPipeline(
+        createReadStream(filePath.resolve(currentWorkingDir, decompressSource)),
+        createBrotliDecompress(),
+        createWriteStream(filePath.resolve(currentWorkingDir, decompressDestination))
+      ).catch(() => console.log('Operation failed'));
+      break;
+
+    case '.exit':
+      console.log(`Thank you for using File Manager, ${currentUsername}, goodbye!`);
+      process.exit();
 
     default:
       console.log('Invalid input');
