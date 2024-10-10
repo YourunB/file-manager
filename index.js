@@ -1,7 +1,7 @@
 const fileSystem = require('fs');
 const filePath = require('path');
 const operatingSystem = require('os');
-const { createReadStream, createWriteStream } = require('crypto');
+const { createHash, createReadStream, createWriteStream } = require('crypto');
 const { pipeline } = require('stream');
 const { promisify } = require('util');
 
@@ -26,8 +26,7 @@ const handleUserInput = async (input) => {
 
     case 'cd':
       const newDirectory = filePath.resolve(currentWorkingDir, args[0]);
-      if (fileSystem.existsSync(newDirectory) && fileSystem.statSync(newDirectory).isDirectory()) currentWorkingDir = newDirectory;
-      else console.log('Invalid input');
+      (fileSystem.existsSync(newDirectory) && fileSystem.statSync(newDirectory).isDirectory()) ? currentWorkingDir = newDirectory : console.log('Invalid input');
       break;
 
     case 'ls':
@@ -99,6 +98,14 @@ const handleUserInput = async (input) => {
         default:
           console.log('Invalid input');
       }
+      break;
+
+    case 'hash':
+      const fileToHash = filePath.resolve(currentWorkingDir, args[0]);
+      const hashCalculator = createHash('sha256');
+      const fileStream = createReadStream(fileToHash);
+      fileStream.on('data', (data) => hashCalculator.update(data));
+      fileStream.on('end', () => console.log(hashCalculator.digest('hex')));
       break;
 
     default:
