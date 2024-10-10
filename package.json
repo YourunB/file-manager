@@ -1,0 +1,16 @@
+{
+  "name": "file-manager",
+  "type": "module",
+  "main": "index.js",
+  "version": "0.0.1",
+  "scripts": {
+    "dev": "node index.js"
+  },
+  "repository": {
+    "url": "git+https://github.com/yourunb/file-manager.git",
+    "type": "git"
+  },
+  "author": "Yury Butskevich",
+  "license": "ISC",
+  "keywords": []
+}
