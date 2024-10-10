@@ -6,14 +6,14 @@ export class System extends FileManager {
     super();
   }
 
-  displayEndOfLine = async () => {
+  osEol  = async () => {
     const osType = platform();
     const eolCharacter = osType === 'win32' ? '\\n' : '\\r\\n';
 
     this.reader.write(`${eolCharacter}${lineEnd}`);
   };
 
-  displayCPUInfo = async () => {
+  osCpus = async () => {
     const cpuInfo = cpus();
     const coreCount = cpuInfo.length;
 
@@ -25,15 +25,15 @@ export class System extends FileManager {
     });
   };
 
-  displayHomeDirectory = async () => {
+  osHomedir  = async () => {
     this.reader.write(`Homedir: ${this.baseDir}${lineEnd}`);
   };
 
-  displayUsername = async () => {
+  osUsername = async () => {
     this.reader.write(`Username: ${userInfo().username}${lineEnd}`);
   };
 
-  displayArchitecture = async () => {
+  osArchitecture  = async () => {
     this.reader.write(`${arch()}${lineEnd}`);
   };
 }

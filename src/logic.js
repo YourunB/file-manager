@@ -127,11 +127,11 @@ export class Logic extends Navigation {
 
   os = async (command) => {
     const commands = {
-      'os --EOL': this.os_eol,
-      'os --cpus': this.os_cpus,
-      'os --homedir': this.os_homedir,
-      'os --username': this.os_username,
-      'os --architecture': this.os_architecture,
+      'os --EOL': this.osEol,
+      'os --cpus': this.osCpus,
+      'os --homedir': this.osHomedir,
+      'os --username': this.osUsername,
+      'os --architecture': this.osArchitecture,
     };
 
     if (commands[command]) {
